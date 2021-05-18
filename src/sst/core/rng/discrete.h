@@ -25,20 +25,20 @@ namespace SST {
 namespace RNG {
 
 /**
-    \class SSTDiscreteDistribution discrete.h "sst/core/rng/discrete.h"
+    \class DiscreteDistribution discrete.h "sst/core/rng/discrete.h"
 
     Creates a discrete distribution for use within SST. This distribution is the same across
     platforms and compilers.
 */
-class SSTDiscreteDistribution : public SSTRandomDistribution {
+class DiscreteDistribution : public RandomDistribution {
 
     public:
         /**
             Creates an exponential distribution with a specific lambda
             \param lambda The lambda of the exponential distribution
         */
-    SSTDiscreteDistribution(const double* probs, const uint32_t probsCount) :
-        SSTRandomDistribution(),
+    DiscreteDistribution(const double* probs, const uint32_t probsCount) :
+        RandomDistribution(),
         probCount(probsCount) {
 
         probabilities = (double*) malloc(sizeof(double) * probsCount);
@@ -58,7 +58,7 @@ class SSTDiscreteDistribution : public SSTRandomDistribution {
         \param lambda The lambda of the exponential distribution
         \param baseDist The base random number generator to take the distribution from.
     */
-    SSTDiscreteDistribution(const double* probs, const uint32_t probsCount, SST::RNG::Random* baseDist) :
+    DiscreteDistribution(const double* probs, const uint32_t probsCount, SST::RNG::Random* baseDist) :
         probCount(probsCount) {
 
         probabilities = (double*) malloc(sizeof(double) * probsCount);
@@ -76,7 +76,7 @@ class SSTDiscreteDistribution : public SSTRandomDistribution {
         /**
             Destroys the exponential distribution
         */
-    ~SSTDiscreteDistribution() {
+    ~DiscreteDistribution() {
         free(probabilities);
 
         if(deleteDistrib) {
@@ -124,6 +124,8 @@ class SSTDiscreteDistribution : public SSTRandomDistribution {
         uint32_t probCount;
 
 };
+
+using SSTDiscreteDistribution = SST::RNG::DiscreteDistribution;
 
 }
 }
