@@ -29,51 +29,41 @@ namespace RNG {
 */
 class ConstantDistribution : public RandomDistribution {
 
-    public:
-        /**
-            Creates a constant distribution which returns a constant value.
-            \param v Is the constant value the user wants returned by the distribution
-        */
-    ConstantDistribution(double v) :
-    RandomDistribution() {
-        mean = v;
-    }
+public:
+    /**
+        Creates a constant distribution which returns a constant value.
+        \param v Is the constant value the user wants returned by the distribution
+    */
+    ConstantDistribution(double v) : RandomDistribution() { mean = v; }
 
-        /**
-            Destroys the constant distribution
-        */
-    ~ConstantDistribution() {
+    /**
+        Destroys the constant distribution
+    */
+    ~ConstantDistribution() {}
 
-    }
+    /**
+        Gets the next double for the distribution, in this case it will return the constant
+        value specified by the user
+        \return Constant value specified by the user when creating the class
+    */
+    double getNextDouble() { return mean; }
 
-        /**
-            Gets the next double for the distribution, in this case it will return the constant
-            value specified by the user
-            \return Constant value specified by the user when creating the class
-        */
-    double getNextDouble() {
-        return mean;
-    }
+    /**
+        Gets the constant value for the distribution
+        \return Constant value specified by the user when creating the class
+    */
+    double getMean() { return mean; }
 
-        /**
-            Gets the constant value for the distribution
-            \return Constant value specified by the user when creating the class
-        */
-    double getMean() {
-        return mean;
-    }
-
-    protected:
-        /**
-            Describes the constant value to return from the distribution.
-        */
-        double mean;
-
+protected:
+    /**
+        Describes the constant value to return from the distribution.
+    */
+    double mean;
 };
 
 using SSTConstantDistribution = SST::RNG::ConstantDistribution;
 
-}
-}
+} // namespace RNG
+} // namespace SST
 
 #endif
