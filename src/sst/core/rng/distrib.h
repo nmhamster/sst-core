@@ -13,15 +13,14 @@
 #ifndef _H_SST_CORE_RNG_DISTRIB
 #define _H_SST_CORE_RNG_DISTRIB
 
-
 namespace SST {
 namespace RNG {
 
 /**
- * \class SSTRandomDistribution
+ * \class RandomDistribution
  * Base class of statistical distributions in SST.
  */
-class SSTRandomDistribution {
+class RandomDistribution {
 
     public:
         /**
@@ -33,14 +32,16 @@ class SSTRandomDistribution {
         /**
             Destroys the distribution
         */
-        virtual ~SSTRandomDistribution() {};
+        virtual ~RandomDistribution() {};
 
         /**
             Creates the base (abstract) class of a distribution
         */
-        SSTRandomDistribution() {};
+        RandomDistribution() {};
 
 };
+
+using SSTRandomDistribution = SST::RNG::RandomDistribution;
 
 }
 }
