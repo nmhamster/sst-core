@@ -27,7 +27,7 @@ namespace RNG {
     Implements a distribution which always returns a constant value (provided by the user). This
     can be used in situations where the user may not want to apply a distribution.
 */
-class ConstantDistribution : public SSTRandomDistribution {
+class ConstantDistribution : public RandomDistribution {
 
     public:
         /**
@@ -35,7 +35,7 @@ class ConstantDistribution : public SSTRandomDistribution {
             \param v Is the constant value the user wants returned by the distribution
         */
     ConstantDistribution(double v) :
-    SSTRandomDistribution() {
+    RandomDistribution() {
         mean = v;
     }
 
