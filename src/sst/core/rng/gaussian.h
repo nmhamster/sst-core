@@ -23,11 +23,11 @@ namespace SST {
 namespace RNG {
 
 /**
-    \class SSTGaussianDistribution gaussian.h "sst/core/rng/gaussian.h"
+    \class GaussianDistribution gaussian.h "sst/core/rng/gaussian.h"
 
     Creates a Gaussian (normal) distribution for which to sample
 */
-class SSTGaussianDistribution : public SSTRandomDistribution {
+class GaussianDistribution : public RandomDistribution {
 
     public:
         /**
@@ -35,8 +35,8 @@ class SSTGaussianDistribution : public SSTRandomDistribution {
             \param mn The mean of the Gaussian distribution
             \param sd The standard deviation of the Gaussian distribution
         */
-    SSTGaussianDistribution(double mn, double sd)  :
-    SSTRandomDistribution() {
+    GaussianDistribution(double mn, double sd)  :
+    RandomDistribution() {
 
         mean = mn;
         stddev = sd;
@@ -53,8 +53,8 @@ class SSTGaussianDistribution : public SSTRandomDistribution {
             \param sd The standard deviation of the Gaussian distribution
             \param baseRNG The random number generator as the base of the distribution
         */
-    SSTGaussianDistribution(double mn, double sd, SST::RNG::Random* baseRNG)  :
-    SSTRandomDistribution() {
+    GaussianDistribution(double mn, double sd, SST::RNG::Random* baseRNG)  :
+    RandomDistribution() {
 
         mean = mn;
         stddev = sd;
@@ -68,7 +68,7 @@ class SSTGaussianDistribution : public SSTRandomDistribution {
         /**
             Destroys the Gaussian distribution.
         */
-    ~SSTGaussianDistribution()  {
+    ~GaussianDistribution()  {
         if(deleteDistrib) {
             delete baseDistrib;
         }
@@ -150,6 +150,8 @@ class SSTGaussianDistribution : public SSTRandomDistribution {
         */
         bool deleteDistrib;
 };
+
+using SSTGaussianDistribution = SST::RNG::GaussianDistribution;
 
 }
 }
