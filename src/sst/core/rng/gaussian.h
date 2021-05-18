@@ -29,14 +29,13 @@ namespace RNG {
 */
 class GaussianDistribution : public RandomDistribution {
 
-    public:
-        /**
-            Creates a new distribution with a predefined random number generator with a specified mean and standard deviation.
-            \param mn The mean of the Gaussian distribution
-            \param sd The standard deviation of the Gaussian distribution
-        */
-    GaussianDistribution(double mn, double sd)  :
-    RandomDistribution() {
+public:
+    /**
+        Creates a new distribution with a predefined random number generator with a specified mean and standard
+       deviation. \param mn The mean of the Gaussian distribution \param sd The standard deviation of the Gaussian
+       distribution
+    */
+    GaussianDistribution(double mn, double sd) : RandomDistribution() {
 
         mean = mn;
         stddev = sd;
@@ -47,14 +46,12 @@ class GaussianDistribution : public RandomDistribution {
         deleteDistrib = true;
     }
 
-        /**
-            Creates a new distribution with a predefined random number generator with a specified mean and standard deviation.
-            \param mn The mean of the Gaussian distribution
-            \param sd The standard deviation of the Gaussian distribution
-            \param baseRNG The random number generator as the base of the distribution
-        */
-    GaussianDistribution(double mn, double sd, SST::RNG::Random* baseRNG)  :
-    RandomDistribution() {
+    /**
+        Creates a new distribution with a predefined random number generator with a specified mean and standard
+       deviation. \param mn The mean of the Gaussian distribution \param sd The standard deviation of the Gaussian
+       distribution \param baseRNG The random number generator as the base of the distribution
+    */
+    GaussianDistribution(double mn, double sd, SST::RNG::Random* baseRNG) : RandomDistribution() {
 
         mean = mn;
         stddev = sd;
@@ -65,21 +62,21 @@ class GaussianDistribution : public RandomDistribution {
         deleteDistrib = false;
     }
 
-        /**
-            Destroys the Gaussian distribution.
-        */
-    ~GaussianDistribution()  {
-        if(deleteDistrib) {
+    /**
+        Destroys the Gaussian distribution.
+    */
+    ~GaussianDistribution() {
+        if (deleteDistrib) {
             delete baseDistrib;
         }
     }
 
-        /**
-            Gets the next double value in the distribution
-            \return The next double value of the distribution (in this case a Gaussian distribution)
-        */
-    double getNextDouble()  {
-        if(usePair) {
+    /**
+        Gets the next double value in the distribution
+        \return The next double value of the distribution (in this case a Gaussian distribution)
+    */
+    double getNextDouble() {
+        if (usePair) {
             usePair = false;
             return unusedPair;
         } else {
@@ -89,13 +86,13 @@ class GaussianDistribution : public RandomDistribution {
                 gauss_u = baseDistrib->nextUniform();
                 gauss_v = baseDistrib->nextUniform();
                 sq_sum = (gauss_u * gauss_u) + (gauss_v * gauss_v);
-            } while(sq_sum >= 1 || sq_sum == 0);
+            } while (sq_sum >= 1 || sq_sum == 0);
 
-            if(baseDistrib->nextUniform() < 0.5) {
+            if (baseDistrib->nextUniform() < 0.5) {
                 gauss_u *= -1.0;
             }
 
-            if(baseDistrib->nextUniform() < 0.5) {
+            if (baseDistrib->nextUniform() < 0.5) {
                 gauss_v *= -1.0;
             }
 
@@ -107,53 +104,50 @@ class GaussianDistribution : public RandomDistribution {
         }
     }
 
-        /**
-            Gets the mean of the distribution
-            \return The mean of the Guassian distribution
-        */
-    double getMean()  {
-        return mean;
-    }
+    /**
+        Gets the mean of the distribution
+        \return The mean of the Guassian distribution
+    */
+    double getMean() { return mean; }
 
-        /**
-            Gets the standard deviation of the distribution
-            \return The standard deviation of the Gaussian distribution
-        */
-    double getStandardDev()  {
-        return stddev;
-    }
+    /**
+        Gets the standard deviation of the distribution
+        \return The standard deviation of the Gaussian distribution
+    */
+    double getStandardDev() { return stddev; }
 
-    protected:
-        /**
-            The mean of the Gaussian distribution
-        */
-        double mean;
-        /**
-            The standard deviation of the Gaussian distribution
-        */
-        double stddev;
-        /**
-            The base random number generator for the distribution
-        */
-        SST::RNG::Random* baseDistrib;
-        /**
-            Random numbers for the distribution are read in pairs, this stores the second of the pair
-        */
-        double unusedPair;
-        /**
-            Random numbers for the distribution are read in pairs, this tells the code to use the second of the pair
-        */
-        bool usePair;
+protected:
+    /**
+        The mean of the Gaussian distribution
+    */
+    double mean;
+    /**
+        The standard deviation of the Gaussian distribution
+    */
+    double stddev;
+    /**
+        The base random number generator for the distribution
+    */
+    SST::RNG::Random* baseDistrib;
+    /**
+        Random numbers for the distribution are read in pairs, this stores the second of the pair
+    */
+    double unusedPair;
+    /**
+        Random numbers for the distribution are read in pairs, this tells the code to use the second of the pair
+    */
+    bool usePair;
 
-        /**
-            Controls whether the destructor deletes the distribution (we need to ensure we do this IF we created the distribution)
-        */
-        bool deleteDistrib;
+    /**
+        Controls whether the destructor deletes the distribution (we need to ensure we do this IF we created the
+       distribution)
+    */
+    bool deleteDistrib;
 };
 
 using SSTGaussianDistribution = SST::RNG::GaussianDistribution;
 
-}
-}
+} // namespace RNG
+} // namespace SST
 
 #endif
