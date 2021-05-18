@@ -14,7 +14,7 @@
 
 #include "math.h"
 
-#include <cstdlib>  // for malloc/free
+#include <cstdlib> // for malloc/free
 
 #include "distrib.h"
 #include "mersenne.h"
@@ -32,25 +32,23 @@ namespace RNG {
 */
 class DiscreteDistribution : public RandomDistribution {
 
-    public:
-        /**
-            Creates an exponential distribution with a specific lambda
-            \param lambda The lambda of the exponential distribution
-        */
-    DiscreteDistribution(const double* probs, const uint32_t probsCount) :
-        RandomDistribution(),
-        probCount(probsCount) {
+public:
+    /**
+        Creates an exponential distribution with a specific lambda
+        \param lambda The lambda of the exponential distribution
+    */
+    DiscreteDistribution(const double* probs, const uint32_t probsCount) : RandomDistribution(), probCount(probsCount) {
 
-        probabilities = (double*) malloc(sizeof(double) * probsCount);
-    double prob_sum = 0;
+        probabilities = (double*)malloc(sizeof(double) * probsCount);
+        double prob_sum = 0;
 
-    for(uint32_t i = 0; i < probsCount; i++) {
-        probabilities[i] = prob_sum;
-        prob_sum += probs[i];
-    }
+        for (uint32_t i = 0; i < probsCount; i++) {
+            probabilities[i] = prob_sum;
+            prob_sum += probs[i];
+        }
 
-            baseDistrib = new MersenneRNG();
-            deleteDistrib = true;
+        baseDistrib = new MersenneRNG();
+        deleteDistrib = true;
     }
 
     /**
@@ -58,76 +56,76 @@ class DiscreteDistribution : public RandomDistribution {
         \param lambda The lambda of the exponential distribution
         \param baseDist The base random number generator to take the distribution from.
     */
-    DiscreteDistribution(const double* probs, const uint32_t probsCount, SST::RNG::Random* baseDist) :
-        probCount(probsCount) {
+    DiscreteDistribution(const double* probs, const uint32_t probsCount, SST::RNG::Random* baseDist)
+        : probCount(probsCount) {
 
-        probabilities = (double*) malloc(sizeof(double) * probsCount);
-    double prob_sum = 0;
+        probabilities = (double*)malloc(sizeof(double) * probsCount);
+        double prob_sum = 0;
 
-    for(uint32_t i = 0; i < probsCount; i++) {
-        probabilities[i] = prob_sum;
-        prob_sum += probs[i];
-    }
+        for (uint32_t i = 0; i < probsCount; i++) {
+            probabilities[i] = prob_sum;
+            prob_sum += probs[i];
+        }
 
         baseDistrib = baseDist;
-            deleteDistrib = false;
+        deleteDistrib = false;
     }
 
-        /**
-            Destroys the exponential distribution
-        */
+    /**
+        Destroys the exponential distribution
+    */
     ~DiscreteDistribution() {
         free(probabilities);
 
-        if(deleteDistrib) {
+        if (deleteDistrib) {
             delete baseDistrib;
         }
     }
 
-        /**
-            Gets the next (random) double value in the distribution
-            \return The next random double from the discrete distribution, this is the double converted of the index where the probability is located
-        */
+    /**
+        Gets the next (random) double value in the distribution
+        \return The next random double from the discrete distribution, this is the double converted of the index where
+       the probability is located
+    */
     double getNextDouble() {
         const double nextD = baseDistrib->nextUniform();
 
         uint32_t index = 0;
 
-        for(; index < probCount; index++) {
-            if(probabilities[index] >= nextD) {
+        for (; index < probCount; index++) {
+            if (probabilities[index] >= nextD) {
                 break;
             }
         }
 
-        return (double) index;
+        return (double)index;
     }
 
-    protected:
-        /**
-            Sets the base random number generator for the distribution.
-        */
-        SST::RNG::Random* baseDistrib;
+protected:
+    /**
+        Sets the base random number generator for the distribution.
+    */
+    SST::RNG::Random* baseDistrib;
 
-        /**
-            Controls whether the base distribution should be deleted when this class is destructed.
-        */
-        bool deleteDistrib;
+    /**
+        Controls whether the base distribution should be deleted when this class is destructed.
+    */
+    bool deleteDistrib;
 
-        /**
-            The discrete probability list
-        */
-        double* probabilities;
+    /**
+        The discrete probability list
+    */
+    double* probabilities;
 
-        /**
-            Count of discrete probabilities
-        */
-        uint32_t probCount;
-
+    /**
+        Count of discrete probabilities
+    */
+    uint32_t probCount;
 };
 
 using SSTDiscreteDistribution = SST::RNG::DiscreteDistribution;
 
-}
-}
+} // namespace RNG
+} // namespace SST
 
 #endif
