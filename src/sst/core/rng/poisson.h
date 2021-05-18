@@ -23,20 +23,20 @@ namespace SST {
 namespace RNG {
 
 /**
-    \class SSTPoissonDistribution poisson.h "sst/core/rng/poisson.h"
+    \class PoissonDistribution poisson.h "sst/core/rng/poisson.h"
 
     Creates an Poisson distribution for use within SST. This distribution is the same across
     platforms and compilers.
 */
-class SSTPoissonDistribution : public SSTRandomDistribution {
+class PoissonDistribution : public RandomDistribution {
 
     public:
         /**
             Creates an Poisson distribution with a specific lambda
             \param mn The lambda of the Poisson distribution
         */
-    SSTPoissonDistribution(const double mn)  :
-    SSTRandomDistribution(), lambda(mn) {
+    PoissonDistribution(const double mn)  :
+    RandomDistribution(), lambda(mn) {
 
         baseDistrib = new MersenneRNG();
         deleteDistrib = true;
@@ -47,8 +47,8 @@ class SSTPoissonDistribution : public SSTRandomDistribution {
             \param lambda The lambda of the Poisson distribution
             \param baseDist The base random number generator to take the distribution from.
         */
-    SSTPoissonDistribution(const double mn, SST::RNG::Random* baseDist)  :
-    SSTRandomDistribution(), lambda(mn) {
+    PoissonDistribution(const double mn, SST::RNG::Random* baseDist)  :
+    RandomDistribution(), lambda(mn) {
 
         baseDistrib = baseDist;
         deleteDistrib = false;
@@ -57,7 +57,7 @@ class SSTPoissonDistribution : public SSTRandomDistribution {
         /**
             Destroys the Poisson distribution
         */
-    ~SSTPoissonDistribution()  {
+    ~PoissonDistribution()  {
         if(deleteDistrib) {
             delete baseDistrib;
         }
@@ -104,6 +104,8 @@ class SSTPoissonDistribution : public SSTRandomDistribution {
         bool deleteDistrib;
 
 };
+
+using SSTPoissonDistribution = SST::RNG::PoissonDistribution;
 
 }
 }
