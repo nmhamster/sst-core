@@ -22,19 +22,19 @@ namespace SST {
 namespace RNG {
 
 /**
-    \class SSTConstantDistribution constant.h "sst/core/rng/constant.h"
+    \class ConstantDistribution constant.h "sst/core/rng/constant.h"
 
     Implements a distribution which always returns a constant value (provided by the user). This
     can be used in situations where the user may not want to apply a distribution.
 */
-class SSTConstantDistribution : public SSTRandomDistribution {
+class ConstantDistribution : public SSTRandomDistribution {
 
     public:
         /**
             Creates a constant distribution which returns a constant value.
             \param v Is the constant value the user wants returned by the distribution
         */
-    SSTConstantDistribution(double v) :
+    ConstantDistribution(double v) :
     SSTRandomDistribution() {
         mean = v;
     }
@@ -42,7 +42,7 @@ class SSTConstantDistribution : public SSTRandomDistribution {
         /**
             Destroys the constant distribution
         */
-    ~SSTConstantDistribution() {
+    ~ConstantDistribution() {
 
     }
 
@@ -70,6 +70,8 @@ class SSTConstantDistribution : public SSTRandomDistribution {
         double mean;
 
 };
+
+using SSTConstantDistribution = SST::RNG::ConstantDistribution;
 
 }
 }
