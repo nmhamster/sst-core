@@ -9,7 +9,6 @@
 // information, see the LICENSE file in the top level directory of the
 // distribution.
 
-
 #ifndef _H_SST_CORE_RNG_DISTRIB
 #define _H_SST_CORE_RNG_DISTRIB
 
@@ -22,28 +21,27 @@ namespace RNG {
  */
 class RandomDistribution {
 
-    public:
-        /**
-            Obtains the next double from the distribution
-            \return The next double in the distribution being sampled
-        */
-        virtual double getNextDouble() = 0;
+public:
+    /**
+        Obtains the next double from the distribution
+        \return The next double in the distribution being sampled
+    */
+    virtual double getNextDouble() = 0;
 
-        /**
-            Destroys the distribution
-        */
-        virtual ~RandomDistribution() {};
+    /**
+        Destroys the distribution
+    */
+    virtual ~RandomDistribution() {};
 
-        /**
-            Creates the base (abstract) class of a distribution
-        */
-        RandomDistribution() {};
-
+    /**
+        Creates the base (abstract) class of a distribution
+    */
+    RandomDistribution() {};
 };
 
 using SSTRandomDistribution = SST::RNG::RandomDistribution;
 
-}
-}
+} // namespace RNG
+} // namespace SST
 
 #endif
