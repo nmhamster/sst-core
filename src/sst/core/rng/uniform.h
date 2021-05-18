@@ -23,20 +23,20 @@ namespace SST {
 namespace RNG {
 
 /**
-    \class SSTUniformDistribution uniform.h "sst/core/rng/uniform.h"
+    \class UniformDistribution uniform.h "sst/core/rng/uniform.h"
 
     Creates a Uniform distribution for use within SST. This distribution is the same across
     platforms and compilers.
 */
-class SSTUniformDistribution : public SSTRandomDistribution {
+class UniformDistribution : public RandomDistribution {
 
     public:
         /**
             Creates an uniform distribution with a specific number of bins
             \param probsCount Number of probability bins in this distribution
         */
-        SSTUniformDistribution(const uint32_t probsCount) :
-        	SSTRandomDistribution(), probCount(probsCount), deleteDistrib(true) {
+        UniformDistribution(const uint32_t probsCount) :
+        	RandomDistribution(), probCount(probsCount), deleteDistrib(true) {
 
 		if( probCount > 0 ) {
 			probPerBin = 1.0 / static_cast<double>( probCount );
@@ -51,8 +51,8 @@ class SSTUniformDistribution : public SSTRandomDistribution {
 	        \param probsCount Number of probability bins in the distribution
         	\param baseDist The base random number generator to take the distribution from.
     	*/
-    	SSTUniformDistribution(const uint32_t probsCount, SST::RNG::Random* baseDist) :
-   		SSTRandomDistribution(), probCount(probsCount), deleteDistrib(false) {
+    	UniformDistribution(const uint32_t probsCount, SST::RNG::Random* baseDist) :
+   		RandomDistribution(), probCount(probsCount), deleteDistrib(false) {
 
 		if( probCount > 0 ) {
 			probPerBin = 1.0 / static_cast<double>( probCount );
@@ -64,7 +64,7 @@ class SSTUniformDistribution : public SSTRandomDistribution {
         /**
             Destroys the distribution and will delete locally allocated RNGs
         */
-    	~SSTUniformDistribution() {
+    	~UniformDistribution() {
         	if(deleteDistrib) {
 	            delete baseDistrib;
         	}
@@ -107,6 +107,8 @@ class SSTUniformDistribution : public SSTRandomDistribution {
 	double probPerBin;
 
 };
+
+using SSTUniformDistribution = SST::RNG::UniformDistribution;
 
 }
 }
